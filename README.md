@@ -35,3 +35,10 @@ git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
 yarn
 ```
+
+## Para acessar:
+
+```bash
+usuario: admin@painel.com.br
+senha: Admin123@
+```
