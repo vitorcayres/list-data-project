@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
+import { useState, useEffect, type Key } from "react";
 import { Star, Trophy, CircleDollarSign } from "lucide-react";
 
 import {
@@ -102,62 +102,80 @@ const Statistics = () => {
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
           <div className="grid auto-rows-min gap-4 md:grid-cols-4 px-6">
-            {estatistica.map((cliente, index) => (
-              <Card key={index} className="w-full max-w-sm">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                    {cliente.info.nomeCompleto}
-                  </CardTitle>
-                  <div className="text-sm text-muted-foreground">
-                    {cliente.info.detalhes.email}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Vendas: R$ {cliente.total.toFixed(2)}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Média: R$ {cliente.media.toFixed(2)}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Frequência: {cliente.frequencia}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Letra não usada: <strong>{cliente.letraFaltando}</strong>
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <div className="flex gap-3 items-center justify-between">
-                    {cliente.maiorVolume && (
-                      <div className="flex flex-col items-center gap-2">
-                        <Trophy />
-                        <p className="text-xs text-center text-muted-foreground">
-                          Maior Volume
-                        </p>
-                      </div>
-                    )}
+            {estatistica.map(
+              (
+                cliente: {
+                  info: {
+                    nomeCompleto: string;
+                    detalhes: {
+                      email: string;
+                    };
+                  };
+                  total: number;
+                  media: number;
+                  frequencia: string | number;
+                  letraFaltando: string;
+                  maiorVolume: any;
+                  maiorMedia: any;
+                },
+                index: Key
+              ) => (
+                <Card key={index} className="w-full max-w-sm">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                      {cliente.info.nomeCompleto}
+                    </CardTitle>
+                    <div className="text-sm text-muted-foreground">
+                      {cliente.info.detalhes.email}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      Vendas: R$ {cliente.total.toFixed(2)}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Média: R$ {cliente.media.toFixed(2)}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Frequência: {cliente.frequencia}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Letra não usada: <strong>{cliente.letraFaltando}</strong>
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="flex gap-3 items-center justify-between">
+                      {cliente.maiorVolume && (
+                        <div className="flex flex-col items-center gap-2">
+                          <Trophy />
+                          <p className="text-xs text-center text-muted-foreground">
+                            Maior Volume
+                          </p>
+                        </div>
+                      )}
 
-                    {cliente.maiorMedia && (
-                      <div className="flex flex-col items-center gap-2">
-                        <Star />
-                        <p className="text-xs text-center text-muted-foreground">
-                          Maior Média
-                        </p>
-                      </div>
-                    )}
+                      {cliente.maiorMedia && (
+                        <div className="flex flex-col items-center gap-2">
+                          <Star />
+                          <p className="text-xs text-center text-muted-foreground">
+                            Maior Média
+                          </p>
+                        </div>
+                      )}
 
-                    {cliente.maiorMedia && (
-                      <div className="flex flex-col items-center gap-2">
-                        <CircleDollarSign />
-                        <p className="text-xs text-center text-muted-foreground">
-                          Maior Frequência
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </CardFooter>
-              </Card>
-            ))}
+                      {cliente.maiorMedia && (
+                        <div className="flex flex-col items-center gap-2">
+                          <CircleDollarSign />
+                          <p className="text-xs text-center text-muted-foreground">
+                            Maior Frequência
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </CardFooter>
+                </Card>
+              )
+            )}
           </div>
           <div className="px-4 lg:px-6">
             <ChartAreaInteractive chartData={data} />
